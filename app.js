@@ -5,6 +5,7 @@ const prevAndNextContainer = document.querySelector('#prev-and-next-container');
 
 const apiURL = `https://api.lyrics.ovh`;
 
+// [inserir as informações das músicas na tela]
 const insertSongsIntoPage = songsInfo => {
 
     songsContainer.innerHTML = songsInfo.data.map(song => `
@@ -13,8 +14,16 @@ const insertSongsIntoPage = songsInfo => {
         <button class="btn" data-artist="${song.artist.name}" data-song-title="${song.title}">Ver letra</button>
     </li>
     `).join('')
+
+    if (songsInfo.prev || songsInfo.next) {
+
+        prevAndNextContainer.innerHTML = `
+            ${songsInfo.next ? `<button>Próximas</button>` : '' }
+        `
+    }
 }
 
+// [fazer a requisição das letras das músicas]
 const fetchSongs = async term => {
 
     const response = await fetch(`${apiURL}/suggest/${term}`)
