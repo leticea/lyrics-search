@@ -8,13 +8,9 @@ const apiURL = `https://api.lyrics.ovh`;
 const fetchSongs = async term => {
 
     const response = await fetch(`${apiURL}/suggest/${term}`)
+    const data = await response.json()
 
-
-    fetch(`${apiURL}/suggest/${term}`)
-        .then(response => response.json())
-        .then(data => {
-            console.log(data)
-        })
+    console.log(data)
 }
 
 form.addEventListener('submit', event => {
