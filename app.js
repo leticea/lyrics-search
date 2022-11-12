@@ -18,9 +18,13 @@ const insertSongsIntoPage = songsInfo => {
     if (songsInfo.prev || songsInfo.next) {
 
         prevAndNextContainer.innerHTML = `
-            ${songsInfo.next ? `<button>Próximas</button>` : '' }
+            ${songsInfo.prev ? `<button class="btn" onClick="getMoreSongs('${songsInfo.prev}')">Anteriores</button>` : ''}
+            ${songsInfo.next ? `<button class="btn" onClick="getMoreSongs('${songsInfo.next}')">Próximas</button>` : ''}
         `
+        return;
     }
+
+    prevAndNextContainer.innerHTML = ''
 }
 
 // [fazer a requisição das letras das músicas]
