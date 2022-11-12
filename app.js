@@ -5,11 +5,15 @@ const prevAndNextContainer = document.querySelector('#prev-and-next-container');
 
 const apiURL = `https://api.lyrics.ovh`;
 
-const fetchSongs = term => {
+const fetchSongs = async term => {
+
+    const response = await fetch(`${apiURL}/suggest/${term}`)
+
 
     fetch(`${apiURL}/suggest/${term}`)
-        .then(response => {
-            console.log(response)
+        .then(response => response.json())
+        .then(data => {
+            console.log(data)
         })
 }
 
