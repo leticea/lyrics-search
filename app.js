@@ -7,7 +7,11 @@ const apiURL = `https://api.lyrics.ovh`;
 
 const insertSongsIntoPage = songsInfo => {
 
-    songsContainer.innerHTML = songsInfo.data.map(song => `<li>${song.title}</li>`).join('')
+    songsContainer.innerHTML = songsInfo.data.map(song => `
+    <li class="song">
+        <span class="song-artist"><strong>${song.artist.name}</strong> - ${song.title}</span>
+    </li>
+    `).join('')
 }
 
 const fetchSongs = async term => {
