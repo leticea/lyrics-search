@@ -8,4 +8,13 @@ const apiURL = `https://api.lyrics.ovh`;
 form.addEventListener('submit', event => {
 
     event.preventDefault();
+
+    const searchTerm = searchInput.value.trim();
+
+    if (!searchTerm) {
+
+        songsContainer.innerHTML = `<li class="warning-message">Por favor, digite um termo válido</li>`;
+
+    }
+    
 })
