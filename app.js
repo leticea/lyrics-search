@@ -5,12 +5,21 @@ const prevAndNextContainer = document.querySelector('#prev-and-next-container');
 
 const apiURL = `https://api.lyrics.ovh`;
 
+const insertSongsIntoPage = songsInfo => {
+
+    console.log(songsInfo.data.map(song => `<li>${song.title}</li>`))
+
+    /*songsContainer.innerHTML = songsInfo.data.map(song => `
+        <li>${song.title}</li>
+    `)*/
+}
+
 const fetchSongs = async term => {
 
     const response = await fetch(`${apiURL}/suggest/${term}`)
     const data = await response.json()
 
-    console.log(data)
+    insertSongsIntoPage(data);
 }
 
 form.addEventListener('submit', event => {
