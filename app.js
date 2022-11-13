@@ -17,28 +17,28 @@ const getMoreSongs = async url => {
     insertSongsIntoPage(data);
 };
 
-const insertNextAndPrevButtons = songsInfo => {
+const insertNextAndPrevButtons = ({ prev, next }) => {
 
     prevAndNextContainer.innerHTML = `
-        ${songsInfo.prev ? `<button class="btn" onClick="getMoreSongs('${songsInfo.prev}')">Anteriores</button>` : ''}
-        ${songsInfo.next ? `<button class="btn" onClick="getMoreSongs('${songsInfo.next}')">Próximas</button>` : ''}
+        ${prev ? `<button class="btn" onClick="getMoreSongs('${prev}')">Anteriores</button>` : ''}
+        ${next ? `<button class="btn" onClick="getMoreSongs('${next}')">Próximas</button>` : ''}
     `
 };
 
 // [insere a listagem das músicas na página]
-const insertSongsIntoPage = songsInfo => {
+const insertSongsIntoPage = ({ data, prev, next }) => {
 
-    songsContainer.innerHTML = songsInfo.data.map(song => `
+    songsContainer.innerHTML = data.map(({ artist: { name }, title }) => `
     <li class="song">
-        <span class="song-artist"><strong>${song.artist.name}</strong> - ${song.title}</span>
-        <button class="btn" data-artist="${song.artist.name}" data-song-title="${song.title}">Ver letra</button>
+        <span class="song-artist"><strong>${name}</strong> - ${title}</span>
+        <button class="btn" data-artist="${name}" data-song-title="${title}">Ver letra</button>
     </li>
     `).join('');    
     
     // [insere os botões para as próximas músicas e as anteriores]
-    if (songsInfo.prev || songsInfo.next) {
+    if (prev || next) {
         
-        insertNextAndPrevButtons(songsInfo); 
+        insertNextAndPrevButtons({ prev, next }); 
         return;
     }
 
@@ -52,11 +52,14 @@ const fetchSongs = async term => {
     insertSongsIntoPage(data);
 };
 
-form.addEventListener('submit', event => {
+// [pega o valor digitado do input e armazena no searchInput]
+const handleFormSubmit = event => {
 
     event.preventDefault();
 
     const searchTerm = searchInput.value.trim();
+    searchInput.value = '';
+    searchInput.focus();
 
     if (!searchTerm) {
 
@@ -65,7 +68,9 @@ form.addEventListener('submit', event => {
     }
 
     fetchSongs(searchTerm);    
-});
+};
+
+form.addEventListener('submit', handleFormSubmit);
 
 // [insere os dados da letra na página ao clicar no botão 'ver letra']
 const insertLyricsIntoPage = ({ lyrics, artist, songTitle }) => {
@@ -87,7 +92,8 @@ const fetchLyrics = async (artist, songTitle) => {
     insertLyricsIntoPage({ lyrics, artist, songTitle });
 };
 
-songsContainer.addEventListener('click', event => {
+// [cria o evento no botão de 'ver letra' para receber os dados da letra]
+const handleSongsContainerClick = event => {
 
     const clickedElement = event.target;
 
@@ -99,4 +105,6 @@ songsContainer.addEventListener('click', event => {
         prevAndNextContainer.innerHTML = '';
         fetchLyrics(artist, songTitle);
     }
-});
+};
+
+songsContainer.addEventListener('click', handleSongsContainerClick);
