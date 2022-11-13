@@ -61,5 +61,13 @@ form.addEventListener('submit', event => {
 
 songsContainer.addEventListener('click', event => {
 
-    const clickedElement = event.target
+    const clickedElement = event.target;
+
+    if (clickedElement.tagName === 'BUTTON') {
+
+        const artist = clickedElement.getAttribute('data-artist');
+        const songTitle = clickedElement.getAttribute('data-song-title');
+
+        console.log({ artist, songTitle })
+    }
 })
