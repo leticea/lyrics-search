@@ -7,13 +7,13 @@ const apiURL = `https://api.lyrics.ovh`;
 
 const fetchData = async url => {
 
-    const response = await fetch(url)
-    return await response.json()
+    const response = await fetch(url);
+    return await response.json();
 };
 
 const getMoreSongs = async url => {
 
-    const data = await fetchData(`https://cors-anywhere.herokuapp.com/${url}`)
+    const data = await fetchData(`https://cors-anywhere.herokuapp.com/${url}`);
     insertSongsIntoPage(data);
 };
 
@@ -42,9 +42,7 @@ const insertSongsIntoPage = songsInfo => {
 // [fazer a requisição das letras das músicas]
 const fetchSongs = async term => {
 
-    const response = await fetch(`${apiURL}/suggest/${term}`)
-    const data = await response.json()
-
+    const data = await fetchData(`${apiURL}/suggest/${term}`);
     insertSongsIntoPage(data);
 };
 
@@ -65,9 +63,8 @@ form.addEventListener('submit', event => {
 
 const fetchLyrics = async (artist, songTitle) => {
 
-    const response = await fetch(`${apiURL}/v1/${artist}/${songTitle}`)
-    const data = await response.json()
-    const lyrics = data.lyrics.replace(/(\r\n|\r|\n)/g, '<br>')
+    const data = await fetchData(`${apiURL}/v1/${artist}/${songTitle}`);
+    const lyrics = data.lyrics.replace(/(\r\n|\r|\n)/g, '<br>');
 
     songsContainer.innerHTML = `
         <li class="lyrics-container">
