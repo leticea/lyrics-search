@@ -13,7 +13,7 @@ const fetchData = async url => {
 
 const getMoreSongs = async url => {
 
-    const data = await fetchData(`https://cors-anywhere.herokuapp.com/${url}`);
+    const data = await fetchData(`https://cors-anywhere.herokuapp.com/${url}`); //problema com a api
     insertSongsIntoPage(data);
 };
 
