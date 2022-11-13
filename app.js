@@ -11,7 +11,7 @@ const getMoreSongs = async url => {
     const data = await response.json()
 
     insertSongsIntoPage(data);
-}
+};
 
 // [inserir as informações das músicas na tela]
 const insertSongsIntoPage = songsInfo => {
@@ -33,7 +33,7 @@ const insertSongsIntoPage = songsInfo => {
     }
 
     prevAndNextContainer.innerHTML = ''
-}
+};
 
 // [fazer a requisição das letras das músicas]
 const fetchSongs = async term => {
@@ -42,7 +42,7 @@ const fetchSongs = async term => {
     const data = await response.json()
 
     insertSongsIntoPage(data);
-}
+};
 
 form.addEventListener('submit', event => {
 
@@ -63,6 +63,7 @@ const fetchLyrics = async (artist, songTitle) => {
 
     const response = await fetch(`${apiURL}/v1/${artist}/${songTitle}`)
     const data = await response.json()
+    const lyrics = data.lyrics.replace(/(\r\n)/)
 
     songsContainer.innerHTML = `
         <li class="lyrics-container">
@@ -70,7 +71,7 @@ const fetchLyrics = async (artist, songTitle) => {
             <p class="lyrics">${data.lyrics}</p>
         </li>
     `
-}
+};
 
 songsContainer.addEventListener('click', event => {
 
@@ -81,6 +82,7 @@ songsContainer.addEventListener('click', event => {
         const artist = clickedElement.getAttribute('data-artist');
         const songTitle = clickedElement.getAttribute('data-song-title');
 
+        prevAndNextContainer.innerHTML = ''
         fetchLyrics(artist, songTitle)
     }
-})
+});
