@@ -5,6 +5,14 @@ const prevAndNextContainer = document.querySelector('#prev-and-next-container');
 
 const apiURL = `https://api.lyrics.ovh`;
 
+const getMoreSongs = async url => {
+
+    const response = await fetch(url)
+    const data = await response.json()
+
+    insertSongsIntoPage(data);
+}
+
 // [inserir as informações das músicas na tela]
 const insertSongsIntoPage = songsInfo => {
 
