@@ -7,7 +7,7 @@ const apiURL = `https://api.lyrics.ovh`;
 
 const getMoreSongs = async url => {
 
-    const response = await fetch(url)
+    const response = await fetch(`https://cors-anywhere.herokuapp.com/${url}`)
     const data = await response.json()
 
     insertSongsIntoPage(data);
@@ -56,6 +56,10 @@ form.addEventListener('submit', event => {
         return;
     }
 
-    fetchSongs(searchTerm);
-    
+    fetchSongs(searchTerm);    
 });
+
+songsContainer.addEventListener('click', event => {
+
+    const clickedElement = event.target
+})
