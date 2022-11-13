@@ -61,10 +61,7 @@ form.addEventListener('submit', event => {
     fetchSongs(searchTerm);    
 });
 
-const fetchLyrics = async (artist, songTitle) => {
-
-    const data = await fetchData(`${apiURL}/v1/${artist}/${songTitle}`);
-    const lyrics = data.lyrics.replace(/(\r\n|\r|\n)/g, '<br>');
+const insertLyricsIntoPage = lyricsInfo => {
 
     songsContainer.innerHTML = `
         <li class="lyrics-container">
@@ -72,6 +69,14 @@ const fetchLyrics = async (artist, songTitle) => {
             <p class="lyrics">${lyrics}</p>
         </li>
     `
+}
+
+const fetchLyrics = async (artist, songTitle) => {
+
+    const data = await fetchData(`${apiURL}/v1/${artist}/${songTitle}`);
+    const lyrics = data.lyrics.replace(/(\r\n|\r|\n)/g, '<br>');
+
+    insertLyricsIntoPage({ lyrics, artist, songTitle });
 };
 
 songsContainer.addEventListener('click', event => {
@@ -83,7 +88,7 @@ songsContainer.addEventListener('click', event => {
         const artist = clickedElement.getAttribute('data-artist');
         const songTitle = clickedElement.getAttribute('data-song-title');
 
-        prevAndNextContainer.innerHTML = ''
-        fetchLyrics(artist, songTitle)
+        prevAndNextContainer.innerHTML = '';
+        fetchLyrics(artist, songTitle);
     }
 });
