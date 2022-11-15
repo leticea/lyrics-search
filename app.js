@@ -21,8 +21,7 @@ const insertNextAndPrevButtons = ({ prev, next }) => {
 
     prevAndNextContainer.innerHTML = `
         ${prev ? `<button class="btn" onClick="getMoreSongs('${prev}')">Anteriores</button>` : ''}
-        ${next ? `<button class="btn" onClick="getMoreSongs('${next}')">Próximas</button>` : ''}
-    `
+        ${next ? `<button class="btn" onClick="getMoreSongs('${next}')">Próximas</button>` : ''}`
 };
 
 // [insere a listagem das músicas na página]
@@ -79,8 +78,7 @@ const insertLyricsIntoPage = ({ lyrics, artist, songTitle }) => {
         <li class="lyrics-container">
             <h2><strong>${songTitle}</strong> - ${artist}</h2>
             <p class="lyrics">${lyrics}</p>
-        </li>
-    `
+        </li>`
 };
 
 // [insere os dados da letra na página ao clicar no botão 'ver letra']
